@@ -29,6 +29,24 @@ workflows:
         script: |
           cd example
           flutter build ios --release --no-codesign
+      - name: Create app archive
+        script: |
+          # Create .app.zip for testing
+          cd example/build/ios/iphoneos
+          if [ -d "Runner.app" ]; then
+            mkdir -p Payload
+            cp -r Runner.app Payload/
+            zip -r ../Runner.app.zip Payload
+            echo "Created Runner.app.zip"
+          else
+            echo "Runner.app not found in expected location"
+            find . -name "*.app"
+          fi
+    publishing:
+      email:
+        recipients:
+          - shahanmalikkhan@example.com
     artifacts:
-      - build/**/outputs/ipa/**/*.ipa
+      - example/build/ios/iphoneos/Runner.app
+      - example/build/ios/*.app.zip
       - flutter_drive.log

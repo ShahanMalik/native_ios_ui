@@ -40,6 +40,23 @@ cd ios
 pod install
 ```
 
+### Important: iOS-Only Package
+
+This package is designed exclusively for iOS and does not support Android. The native iOS UITabBarController is an iOS-specific component with no Android equivalent in this package.
+
+#### Building with CI/CD
+
+If you're using Codemagic or other CI/CD platforms, ensure that your configuration is set up for iOS builds only:
+
+```yaml
+# Example Codemagic configuration
+scripts:
+  - name: Build iOS example
+    script: |
+      cd example
+      flutter build ios --release --no-codesign
+```
+
 ## Usage
 
 ### Basic Setup
