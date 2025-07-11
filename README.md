@@ -22,7 +22,22 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  native_ios_ui: ^0.0.1
+  native_ios_ui: ^0.0.2
+```
+
+### iOS Setup
+
+This package requires iOS 13.0 or higher. Make sure your `ios/Podfile` has:
+
+```ruby
+platform :ios, '13.0'
+```
+
+Run pod install in your iOS directory:
+
+```bash
+cd ios
+pod install
 ```
 
 ## Usage

@@ -7,6 +7,15 @@
 * Enhanced documentation with badges
 * Improved package structure
 
+## 0.0.2
+
+### Improvements
+- ✅ **Added Podfile** for iOS integration and CI/CD compatibility
+- ✅ **Updated podspec** with proper metadata
+- ✅ **Fixed build issues** on CI/CD platforms like Codemagic
+- ✅ **Improved documentation** for clearer setup instructions
+- ✅ **Enhanced iOS compatibility** with explicit dependency management
+
 ## 0.0.1
 
 ### Features

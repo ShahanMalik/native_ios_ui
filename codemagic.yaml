@@ -1,0 +1,35 @@
+workflows:
+  native-ios-ui-workflow:
+    name: Native iOS UI Build
+    max_build_duration: 30
+    instance_type: mac_mini_m2
+    environment:
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+    cache:
+      cache_paths:
+        - ~/.pub-cache
+    scripts:
+      - name: Set up local.properties
+        script: echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/android/local.properties"
+      - name: Get Flutter packages
+        script: |
+          flutter packages pub get
+          cd example && flutter packages pub get
+      - name: Install CocoaPods dependencies
+        script: |
+          cd ios
+          pod install
+          cd ../example/ios
+          pod install
+      - name: Build iOS example
+        script: |
+          cd example
+          flutter build ios --release --no-codesign
+    artifacts:
+      - build/**/outputs/apk/**/*.apk
+      - build/**/outputs/bundle/**/*.aab
+      - build/**/outputs/ipa/**/*.ipa
+      - build/**/outputs/**/mapping.txt
+      - flutter_drive.log

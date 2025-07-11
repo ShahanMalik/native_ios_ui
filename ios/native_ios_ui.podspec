@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'native_ios_ui'
-  s.version          = '0.0.1'
+  s.version          = '0.0.2'
   s.summary          = 'A Flutter plugin that provides native iOS UITabBarController integration.'
   s.description      = <<-DESC
 A Flutter plugin that provides native iOS UITabBarController integration for Flutter apps.
