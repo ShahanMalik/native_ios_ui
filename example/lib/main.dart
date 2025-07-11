@@ -158,132 +158,173 @@ class _MyAppState extends State<MyApp> {
           backgroundColor: Colors.blue,
           foregroundColor: Colors.white,
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Platform Information',
-                        style: Theme.of(context).textTheme.headlineSmall,
-                      ),
-                      const SizedBox(height: 8),
-                      Text('Running on: $_platformVersion'),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Tab Bar Controller',
-                        style: Theme.of(context).textTheme.headlineSmall,
-                      ),
-                      const SizedBox(height: 16),
-                      ElevatedButton(
-                        onPressed: _createBasicTabBar,
-                        child: const Text('Create Basic Tab Bar'),
-                      ),
-                      const SizedBox(height: 8),
-                      ElevatedButton(
-                        onPressed: _createCustomTabBar,
-                        child: const Text('Create Custom Tab Bar'),
-                      ),
-                      const SizedBox(height: 8),
-                      ElevatedButton(
-                        onPressed: _updateTabBarItems,
-                        child: const Text('Update Tab Bar Items'),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Tab Bar Control',
-                        style: Theme.of(context).textTheme.headlineSmall,
-                      ),
-                      const SizedBox(height: 16),
-                      Row(
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Expanded(
-                            child: ElevatedButton(
-                              onPressed: () => _setSelectedIndex(0),
-                              child: const Text('Select Tab 0'),
-                            ),
+                          Text(
+                            'Platform Information',
+                            style: Theme.of(context).textTheme.headlineSmall,
                           ),
-                          const SizedBox(width: 8),
-                          Expanded(
-                            child: ElevatedButton(
-                              onPressed: () => _setSelectedIndex(1),
-                              child: const Text('Select Tab 1'),
-                            ),
+                          const SizedBox(height: 8),
+                          Text('Running on: $_platformVersion'),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Tab Bar Controller',
+                            style: Theme.of(context).textTheme.headlineSmall,
+                          ),
+                          const SizedBox(height: 16),
+                          ElevatedButton(
+                            onPressed: _createBasicTabBar,
+                            child: const Text('Create Basic Tab Bar'),
+                          ),
+                          const SizedBox(height: 8),
+                          ElevatedButton(
+                            onPressed: _createCustomTabBar,
+                            child: const Text('Create Custom Tab Bar'),
+                          ),
+                          const SizedBox(height: 8),
+                          ElevatedButton(
+                            onPressed: _updateTabBarItems,
+                            child: const Text('Update Tab Bar Items'),
                           ),
                         ],
                       ),
-                      const SizedBox(height: 8),
-                      Row(
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Expanded(
-                            child: ElevatedButton(
-                              onPressed: () => _setSelectedIndex(2),
-                              child: const Text('Select Tab 2'),
-                            ),
+                          Text(
+                            'Tab Bar Control',
+                            style: Theme.of(context).textTheme.headlineSmall,
                           ),
-                          const SizedBox(width: 8),
-                          Expanded(
-                            child: ElevatedButton(
-                              onPressed: _getSelectedIndex,
-                              child: const Text('Get Selected'),
-                            ),
+                          const SizedBox(height: 16),
+                          LayoutBuilder(
+                            builder: (context, constraints) {
+                              // Use column layout for small screens
+                              if (constraints.maxWidth < 350) {
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                  children: [
+                                    ElevatedButton(
+                                      onPressed: () => _setSelectedIndex(0),
+                                      child: const Text('Select Tab 0'),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    ElevatedButton(
+                                      onPressed: () => _setSelectedIndex(1),
+                                      child: const Text('Select Tab 1'),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    ElevatedButton(
+                                      onPressed: () => _setSelectedIndex(2),
+                                      child: const Text('Select Tab 2'),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    ElevatedButton(
+                                      onPressed: _getSelectedIndex,
+                                      child: const Text('Get Selected'),
+                                    ),
+                                  ],
+                                );
+                              } else {
+                                // Use row layout for larger screens
+                                return Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: ElevatedButton(
+                                            onPressed: () => _setSelectedIndex(0),
+                                            child: const Text('Select Tab 0'),
+                                          ),
+                                        ),
+                                        const SizedBox(width: 8),
+                                        Expanded(
+                                          child: ElevatedButton(
+                                            onPressed: () => _setSelectedIndex(1),
+                                            child: const Text('Select Tab 1'),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: ElevatedButton(
+                                            onPressed: () => _setSelectedIndex(2),
+                                            child: const Text('Select Tab 2'),
+                                          ),
+                                        ),
+                                        const SizedBox(width: 8),
+                                        Expanded(
+                                          child: ElevatedButton(
+                                            onPressed: _getSelectedIndex,
+                                            child: const Text('Get Selected'),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                );
+                              }
+                            },
                           ),
                         ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-              const SizedBox(height: 16),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Usage Instructions',
-                        style: Theme.of(context).textTheme.headlineSmall,
+                  const SizedBox(height: 16),
+                  Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Usage Instructions',
+                            style: Theme.of(context).textTheme.headlineSmall,
+                          ),
+                          const SizedBox(height: 8),
+                          const Text(
+                            '1. Tap "Create Basic Tab Bar" to create a simple tab bar\n'
+                            '2. Tap "Create Custom Tab Bar" for a styled version\n'
+                            '3. Use the control buttons to interact with the tab bar\n'
+                            '4. The tab bar will replace the current view',
+                            style: TextStyle(fontSize: 14),
+                          ),
+                        ],
                       ),
-                      const SizedBox(height: 8),
-                      const Text(
-                        '1. Tap "Create Basic Tab Bar" to create a simple tab bar\n'
-                        '2. Tap "Create Custom Tab Bar" for a styled version\n'
-                        '3. Use the control buttons to interact with the tab bar\n'
-                        '4. The tab bar will replace the current view',
-                        style: TextStyle(fontSize: 14),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),

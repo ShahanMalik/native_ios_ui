@@ -1,6 +1,6 @@
 name: native_ios_ui
 description: "A Flutter plugin that provides native iOS UITabBarController integration for Flutter apps."
-version: 0.0.2
+version: 0.0.3
 homepage: https://github.com/ShahanMalik/native_ios_ui
 
 environment:

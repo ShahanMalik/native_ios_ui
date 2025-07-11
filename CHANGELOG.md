@@ -1,3 +1,12 @@
+## 0.0.3
+
+* Fixed UI overflow issues in example app
+* Improved responsive layout with LayoutBuilder
+* Enhanced SafeArea and SingleChildScrollView implementation
+* Fixed code structure and syntax issues
+* Improved stability for different screen sizes
+* Updated documentation
+
 ## 0.0.2
 
 * Updated podspec with proper metadata

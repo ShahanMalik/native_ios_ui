@@ -22,7 +22,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  native_ios_ui: ^0.0.2
+  native_ios_ui: ^0.0.3
 ```
 
 ### iOS Setup

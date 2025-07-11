@@ -28,4 +28,4 @@ assignees: ''
 - Device: <!-- e.g. iPhone 15 Pro -->
 - OS Version: <!-- e.g. iOS 17.2 -->
 - Flutter Version: <!-- e.g. 3.19.0 -->
-- Package Version: <!-- e.g. native_ios_ui 0.0.2 -->
+- Package Version: <!-- e.g. native_ios_ui 0.0.3 -->
