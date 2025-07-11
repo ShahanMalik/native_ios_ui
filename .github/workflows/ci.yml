@@ -1,0 +1,60 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.19.0'
+        channel: 'stable'
+    
+    - name: Install dependencies
+      run: flutter pub get
+    
+    - name: Verify formatting
+      run: dart format --output=none --set-exit-if-changed .
+    
+    - name: Analyze project source
+      run: flutter analyze
+    
+    - name: Run tests
+      run: flutter test
+    
+    - name: Check pub score
+      run: flutter pub publish --dry-run
+
+  build-ios:
+    runs-on: macos-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.19.0'
+        channel: 'stable'
+    
+    - name: Install dependencies
+      run: flutter pub get
+    
+    - name: Build iOS example app
+      run: |
+        cd example
+        flutter build ios --no-codesign
+        
+    - name: Validate podspec
+      run: |
+        cd ios
+        pod lib lint native_ios_ui.podspec --allow-warnings

@@ -1,5 +1,10 @@
 # native_ios_ui
 
+[![pub package](https://img.shields.io/pub/v/native_ios_ui.svg)](https://pub.dev/packages/native_ios_ui)
+[![GitHub Issues](https://img.shields.io/github/issues/ShahanMalik/native_ios_ui.svg)](https://github.com/ShahanMalik/native_ios_ui/issues)
+[![GitHub Stars](https://img.shields.io/github/stars/ShahanMalik/native_ios_ui.svg)](https://github.com/ShahanMalik/native_ios_ui/stargazers)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 A Flutter plugin that provides native iOS UITabBarController integration for Flutter apps.
 
 ## Features
@@ -172,15 +177,4 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 This project is licensed under the MIT License - see the LICENSE file for details.i
 
 A new Flutter plugin project.
-
-## Getting Started
-
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/to/develop-plugins),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
 
