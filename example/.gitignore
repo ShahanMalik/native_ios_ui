@@ -31,6 +31,9 @@ migrate_working_dir/
 .flutter-plugins-dependencies
 .pub-cache/
 .pub/
+# For example app of a plugin, pubspec.lock should be committed
+# See: https://dart.dev/guides/libraries/private-files#pubspeclock
+# pubspec.lock is explicitly NOT ignored for example app
 /build/
 
 # Symbolication related

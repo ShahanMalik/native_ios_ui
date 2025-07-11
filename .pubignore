@@ -1,5 +1,6 @@
 # Files and directories that Pub should ignore when publishing
-example/pubspec.lock
+# Note: We intentionally DO NOT ignore example/pubspec.lock
+# This is the recommended practice for plugin examples
 .DS_Store
 .idea/
 .vscode/
@@ -10,3 +11,11 @@ example/pubspec.lock
 .packages
 build/
 pubspec.lock
+example/.dart_tool/
+example/.flutter-plugins
+example/.flutter-plugins-dependencies
+example/.packages
+example/build/
+example/.idea/
+example/.vscode/
+example/*.iml
