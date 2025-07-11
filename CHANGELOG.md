@@ -1,3 +1,12 @@
+## 0.0.2
+
+* Updated podspec with proper metadata
+* Added comprehensive .gitignore
+* Added GitHub Actions CI/CD pipeline
+* Added community templates (issues, PRs, contributing)
+* Enhanced documentation with badges
+* Improved package structure
+
 ## 0.0.1
 
 ### Features
