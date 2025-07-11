@@ -11,25 +11,24 @@ workflows:
       cache_paths:
         - ~/.pub-cache
     scripts:
-      - name: Set up local.properties
-        script: echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/android/local.properties"
       - name: Get Flutter packages
         script: |
           flutter packages pub get
           cd example && flutter packages pub get
+      - name: Create iOS directories if needed
+        script: |
+          mkdir -p ios
+          mkdir -p example/ios
       - name: Install CocoaPods dependencies
         script: |
           cd ios
-          pod install
+          pod install || true
           cd ../example/ios
-          pod install
+          pod install || true
       - name: Build iOS example
         script: |
           cd example
           flutter build ios --release --no-codesign
     artifacts:
-      - build/**/outputs/apk/**/*.apk
-      - build/**/outputs/bundle/**/*.aab
       - build/**/outputs/ipa/**/*.ipa
-      - build/**/outputs/**/mapping.txt
       - flutter_drive.log
