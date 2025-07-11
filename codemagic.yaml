@@ -1,52 +1,93 @@
 workflows:
   native-ios-ui-workflow:
-    name: Native iOS UI Build
-    max_build_duration: 30
+    name: Native iOS UI Simulator Build
+    max_build_duration: 60
     instance_type: mac_mini_m2
     environment:
       flutter: stable
       xcode: latest
       cocoapods: default
+      vars:
+        FLUTTER_IOS_MIN_VERSION: 13.0
     cache:
       cache_paths:
         - ~/.pub-cache
     scripts:
+      - name: Set Flutter version
+        script: |
+          flutter --version
+          flutter doctor -v
+          
       - name: Get Flutter packages
         script: |
           flutter packages pub get
           cd example && flutter packages pub get
+          
       - name: Create iOS directories if needed
         script: |
           mkdir -p ios
           mkdir -p example/ios
+          
       - name: Install CocoaPods dependencies
         script: |
-          cd ios
-          pod install || true
-          cd ../example/ios
-          pod install || true
-      - name: Build iOS example
+          # Make script executable
+          chmod +x fix_cocoapods.sh
+          # Run the pod fix script
+          ./fix_cocoapods.sh
+          
+      - name: Flutter build iOS for simulator
         script: |
           cd example
-          flutter build ios --release --no-codesign
-      - name: Create app archive
+          echo "Building iOS app for simulator..."
+          # Use --simulator flag to build for iOS simulator instead of physical device
+          flutter build ios --simulator --debug --verbose
+          
+      - name: Package iOS app for simulator
         script: |
-          # Create .app.zip for testing
-          cd example/build/ios/iphoneos
-          if [ -d "Runner.app" ]; then
-            mkdir -p Payload
-            cp -r Runner.app Payload/
-            zip -r ../Runner.app.zip Payload
-            echo "Created Runner.app.zip"
-          else
-            echo "Runner.app not found in expected location"
-            find . -name "*.app"
+          cd example
+          # Find the simulator .app directory
+          APP_DIR=$(find build/ios/iphonesimulator -name "*.app" -type d 2>/dev/null)
+          if [ -z "$APP_DIR" ]; then
+            APP_DIR=$(find build/ios/Debug-iphonesimulator -name "*.app" -type d 2>/dev/null)
           fi
-    publishing:
-      email:
-        recipients:
-          - shahanmalikkhan@example.com
+          
+          if [ -n "$APP_DIR" ]; then
+            echo "Found app directory: $APP_DIR"
+            # Create directory for artifacts if it doesn't exist
+            mkdir -p build/ios/outputs
+            # Package the app
+            cd $(dirname "$APP_DIR")
+            zip -r "../../outputs/Runner.app.zip" $(basename "$APP_DIR")
+            echo "Created Runner.app.zip in build/ios/outputs"
+          else
+            echo "Error: Could not find .app directory"
+            find build/ios -type d | sort
+            exit 1
+          fi
+          
+      - name: Verify simulator build
+        script: |
+          cd example
+          echo "Verifying this is a simulator build..."
+          # Check if any files contain simulator architectures
+          find build/ios -name "*.app" -type d -exec file {}/Runner \; | grep -i simulator || echo "Warning: No simulator binaries found"
+          
+          # Show architecture of binaries
+          echo "Architecture of app binaries:"
+          find build/ios -name "Runner" -type f -exec file {} \;
+          
+          # Additional check for simulator compatibility
+          find build/ios -name "Runner" -type f -exec lipo -info {} \; || true
+          
+      - name: List build outputs
+        script: |
+          echo "Listing all build output directories:"
+          find example/build -type d -name "*.app" | sort
+          echo "Contents of build/ios directory:"
+          find example/build/ios -type d | sort
+          
     artifacts:
-      - example/build/ios/iphoneos/Runner.app
-      - example/build/ios/*.app.zip
+      - example/build/ios/outputs/Runner.app.zip
+      - example/build/ios/iphonesimulator/Runner.app/**
+      - example/build/ios/Debug-iphonesimulator/Runner.app/**
       - flutter_drive.log
